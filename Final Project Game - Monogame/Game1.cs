@@ -4,6 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Final_Project_Game___Monogame
 {
+    enum Screen
+    {
+        Intro,
+        Main
+    }
+
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -26,6 +32,18 @@ namespace Final_Project_Game___Monogame
         Rectangle tracks5Rect;
         Rectangle tracks6Rect;
 
+        Texture2D playTexture;
+        Rectangle playRect;
+
+        Rectangle rectangleRect;
+        Texture2D rectangleTexture;
+
+        MouseState mouseState;
+        MouseState prevMouseState;
+
+        Screen screen;
+        Texture2D introScreen;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -42,12 +60,16 @@ namespace Final_Project_Game___Monogame
             _graphics.ApplyChanges();
             // TODO: Add your initialization logic here
 
+            screen = Screen.Intro;
+
             tracks1Rect = new Rectangle(50, 0, 100, 600);
             tracks2Rect = new Rectangle(150, 0, 100, 600);
             tracks3Rect = new Rectangle(250, 0, 100, 600);
             tracks4Rect = new Rectangle(50, 0, 100, -600);
             tracks5Rect = new Rectangle(150, 0, 100, -600);
             tracks6Rect = new Rectangle(250, 0, 100, -600);
+            playRect = new Rectangle(75, 300, 250, 100);
+            rectangleRect = new Rectangle(89, 302, 221, 97);
 
             base.Initialize();
         }
@@ -63,16 +85,39 @@ namespace Final_Project_Game___Monogame
             tracks1 = Content.Load<Texture2D>("Traintracks2");
             tracks2 = Content.Load<Texture2D>("Traintracks2");
             tracks3 = Content.Load<Texture2D>("Traintracks2");
+            introScreen = Content.Load<Texture2D>("Blue Backround");
+            playTexture = Content.Load<Texture2D>("play-now");
+            rectangleTexture = Content.Load<Texture2D>("rectangle");
         }
 
         protected override void Update(GameTime gameTime)
         {
+            mouseState = Mouse.GetState();
+            prevMouseState = mouseState;
+            
+            this.Window.Title = mouseState.Position.ToString();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
 
+
+            if (screen == Screen.Intro)
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    screen = Screen.Main;
+                }
+            }
+            else if (screen == Screen.Main)
+            {
+
+
+            }
+
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -85,13 +130,23 @@ namespace Final_Project_Game___Monogame
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(grass, window, Color.White);
-            _spriteBatch.Draw(tracks1, tracks1Rect, Color.White);
-            _spriteBatch.Draw(tracks2, tracks2Rect, Color.White);
-            _spriteBatch.Draw(tracks3, tracks3Rect, Color.White);
-            _spriteBatch.Draw(tracks1, tracks4Rect, Color.White);
-            _spriteBatch.Draw(tracks2, tracks5Rect, Color.White);
-            _spriteBatch.Draw(tracks3, tracks6Rect, Color.White);
+
+            if (screen == Screen.Intro)
+            {
+                _spriteBatch.Draw(introScreen, window, Color.White);
+                _spriteBatch.Draw(rectangleTexture, rectangleRect, Color.White);
+                _spriteBatch.Draw(playTexture, playRect, Color.White);
+            }
+            else if (screen == Screen.Main)
+            {
+                _spriteBatch.Draw(grass, window, Color.White);
+                _spriteBatch.Draw(tracks1, tracks1Rect, Color.White);
+                _spriteBatch.Draw(tracks2, tracks2Rect, Color.White);
+                _spriteBatch.Draw(tracks3, tracks3Rect, Color.White);
+                _spriteBatch.Draw(tracks1, tracks4Rect, Color.White);
+                _spriteBatch.Draw(tracks2, tracks5Rect, Color.White);
+                _spriteBatch.Draw(tracks3, tracks6Rect, Color.White);
+            }
 
             _spriteBatch.End();
         }
