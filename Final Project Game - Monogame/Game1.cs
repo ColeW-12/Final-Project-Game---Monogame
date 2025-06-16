@@ -53,6 +53,9 @@ namespace Final_Project_Game___Monogame
         Screen screen;
         Texture2D introScreen;
 
+        KeyboardState keyboardState;
+        KeyboardState prevKeyboardState;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -82,7 +85,7 @@ namespace Final_Project_Game___Monogame
             tracks6Rect = new Rectangle(250, -600, 100, 600);
             playRect = new Rectangle(75, 300, 250, 100);
             rectangleRect = new Rectangle(89, 302, 221, 97);
-            trainRect = new Rectangle(160, 490, 100, 100);
+            trainRect = new Rectangle(155, 500, 90, 200);
 
             trackSpeed = new Vector2(0, 3);
 
@@ -109,9 +112,12 @@ namespace Final_Project_Game___Monogame
 
         protected override void Update(GameTime gameTime)
         {
-            mouseState = Mouse.GetState();
             prevMouseState = mouseState;
-            
+            mouseState = Mouse.GetState();
+
+            prevKeyboardState = keyboardState;
+            keyboardState = Keyboard.GetState();
+
             this.Window.Title = mouseState.Position.ToString();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -144,11 +150,11 @@ namespace Final_Project_Game___Monogame
                     tracks5Rect.Y = -600;
                 tracks3Rect.Y += (int)trackSpeed.Y;
                 if (tracks3Rect.Top >= window.Height)
-                    tracks3Rect.Y += (int)trackSpeed.Y;
+                    tracks3Rect.Y = -600;
                 tracks6Rect.Y += (int)trackSpeed.Y;
                 if (tracks6Rect.Top >= window.Height)
                     tracks6Rect.Y = -600;
-                
+
                 grass1Rect.Y += (int)trackSpeed.Y;
                 if (grass1Rect.Top >= window.Height)
                     grass1Rect.Y = -600;
@@ -156,7 +162,23 @@ namespace Final_Project_Game___Monogame
                 if (grass2Rect.Top >= window.Height)
                     grass2Rect.Y = -600;
 
-
+                if ((keyboardState.IsKeyDown(Keys.Left)) && prevKeyboardState.IsKeyUp)
+                {
+                    if (keyboardState = (int)155)      
+                    trainRect.X = 155;
+                }
+                if (keyboardState.IsKeyDown(Keys.Right) && trainRect.X == 60)
+                {
+                    trainRect.X = 155;
+                }
+                else if ((keyboardState.IsKeyDown(Keys.Left)))
+                {
+                    trainRect.X = 60;
+                }
+                else if ((keyboardState.IsKeyDown(Keys.Right)))
+                {
+                    trainRect.X = 255;
+                }
             }
 
             base.Update(gameTime);
