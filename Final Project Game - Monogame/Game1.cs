@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Security.Cryptography;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -43,8 +44,16 @@ namespace Final_Project_Game___Monogame
         Texture2D trainTexture;
         Rectangle trainRect;
 
+        Texture2D cowTexture;
+        Rectangle cowRect;
+        Vector2 cowSpeed;
+
         MouseState mouseState;
         MouseState prevMouseState;
+
+        Texture2D moneyTexture;
+        Rectangle moneyRect;
+        Vector2 moneySpeed;
 
         Vector2 trackSpeed;
 
@@ -55,6 +64,8 @@ namespace Final_Project_Game___Monogame
 
         KeyboardState keyboardState;
         KeyboardState prevKeyboardState;
+
+        RandomNumberGenerator randNum;
 
         public Game1()
         {
@@ -86,8 +97,11 @@ namespace Final_Project_Game___Monogame
             playRect = new Rectangle(75, 300, 250, 100);
             rectangleRect = new Rectangle(89, 302, 221, 97);
             trainRect = new Rectangle(155, 500, 90, 200);
+            cowRect = new Rectangle(60, -200, 75, 75);
+            moneyRect = new Rectangle(60, -200, 75, 75);
 
             trackSpeed = new Vector2(0, 3);
+            cowSpeed = new Vector2(0, 3);
 
             base.Initialize();
         }
@@ -108,6 +122,8 @@ namespace Final_Project_Game___Monogame
             rectangleTexture = Content.Load<Texture2D>("rectangle");
             titleFont = Content.Load<SpriteFont>("File");
             trainTexture = Content.Load<Texture2D>("train");
+            cowTexture = Content.Load<Texture2D>("cow");
+            moneyTexture = Content.Load<Texture2D>("money bag");
         }
 
         protected override void Update(GameTime gameTime)
@@ -119,6 +135,8 @@ namespace Final_Project_Game___Monogame
             keyboardState = Keyboard.GetState();
 
             this.Window.Title = mouseState.Position.ToString();
+
+            
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -162,23 +180,26 @@ namespace Final_Project_Game___Monogame
                 if (grass2Rect.Top >= window.Height)
                     grass2Rect.Y = -600;
 
-                if ((keyboardState.IsKeyDown(Keys.Left)) && prevKeyboardState.IsKeyUp)
+                if ((keyboardState.IsKeyDown(Keys.Left)) && prevKeyboardState.IsKeyUp(Keys.Left))
                 {
-                    if (keyboardState = (int)155)      
-                    trainRect.X = 155;
+                    if (trainRect.X == 255)
+                        trainRect.X = 155;
+                    else if (trainRect.X == 155)
+                        trainRect.X = 60;
+                    
                 }
-                if (keyboardState.IsKeyDown(Keys.Right) && trainRect.X == 60)
+                if ((keyboardState.IsKeyDown(Keys.Right)) && prevKeyboardState.IsKeyUp(Keys.Right))
                 {
-                    trainRect.X = 155;
+                    if (trainRect.X == 60)
+                        trainRect.X = 155;
+                    else if (trainRect.X == 155)
+                        trainRect.X = 255;
+
                 }
-                else if ((keyboardState.IsKeyDown(Keys.Left)))
-                {
-                    trainRect.X = 60;
-                }
-                else if ((keyboardState.IsKeyDown(Keys.Right)))
-                {
-                    trainRect.X = 255;
-                }
+                cowRect.Y += (int)cowSpeed.Y;
+                if (cowRect.Top >= window.Height)
+                    cowRect.Y = -200;
+
             }
 
             base.Update(gameTime);
@@ -213,6 +234,8 @@ namespace Final_Project_Game___Monogame
                 _spriteBatch.Draw(tracks1, tracks4Rect, Color.White);
                 _spriteBatch.Draw(tracks2, tracks5Rect, Color.White);
                 _spriteBatch.Draw(tracks3, tracks6Rect, Color.White);
+                _spriteBatch.Draw(cowTexture, cowRect, Color.White);
+                _spriteBatch.Draw(moneyTexture, moneyRect, Color.White);
 
                 _spriteBatch.Draw(trainTexture, trainRect, Color.White);
             }
