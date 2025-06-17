@@ -199,6 +199,8 @@ namespace Final_Project_Game___Monogame
                 cowRect.Y += (int)cowSpeed.Y;
                 if (cowRect.Top >= window.Height)
                     cowRect.Y = -200;
+                if (trainRect.Intersects(cowRect))
+                    screen = Screen.Intro;
 
             }
 
