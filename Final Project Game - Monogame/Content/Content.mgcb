@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Blue Backround.jpg
 
+#begin buttonHome.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttonHome.png
+
 #begin cow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -92,6 +104,18 @@
 /processorParam:TextureFormat=Color
 /build:rectangle.png
 
+#begin stone.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:stone.png
+
 #begin train.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -115,4 +139,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Traintracks2.png
+
+#begin you lose.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:you lose.jpg
 
