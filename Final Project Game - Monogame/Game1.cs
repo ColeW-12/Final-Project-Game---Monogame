@@ -26,6 +26,7 @@ namespace Final_Project_Game___Monogame
         Rectangle tracks5Rect;
         Rectangle tracks6Rect;
 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -48,6 +49,7 @@ namespace Final_Project_Game___Monogame
             tracks4Rect = new Rectangle(50, 0, 100, -600);
             tracks5Rect = new Rectangle(150, 0, 100, -600);
             tracks6Rect = new Rectangle(250, 0, 100, -600);
+           
 
             base.Initialize();
         }
@@ -63,6 +65,7 @@ namespace Final_Project_Game___Monogame
             tracks1 = Content.Load<Texture2D>("Traintracks2");
             tracks2 = Content.Load<Texture2D>("Traintracks2");
             tracks3 = Content.Load<Texture2D>("Traintracks2");
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -92,6 +95,7 @@ namespace Final_Project_Game___Monogame
             _spriteBatch.Draw(tracks1, tracks4Rect, Color.White);
             _spriteBatch.Draw(tracks2, tracks5Rect, Color.White);
             _spriteBatch.Draw(tracks3, tracks6Rect, Color.White);
+            
 
             _spriteBatch.End();
         }
