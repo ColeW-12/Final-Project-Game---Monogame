@@ -80,8 +80,8 @@ namespace Final_Project_Game___Monogame
         Rectangle rockRect;
         Vector2 rockSpeed;
 
-        Random randNum;
-        int drop;
+        Random randNum1, randNum2;
+        int drop1, drop2;
 
         public Game1()
         {
@@ -123,8 +123,10 @@ namespace Final_Project_Game___Monogame
             cowSpeed = new Vector2(0, 3);
             rockSpeed = new Vector2(0, 3);
 
-            randNum = new Random();
-            drop = randNum.Next(1, 4);
+            randNum1 = new Random();
+            drop1 = randNum1.Next(1, 4);
+            randNum2 = new Random();
+            drop2 = randNum2.Next(0, 4);
 
             base.Initialize();
         }
@@ -227,14 +229,14 @@ namespace Final_Project_Game___Monogame
                 cowRect.Y += (int)cowSpeed.Y;
                 if (cowRect.Top >= window.Height)
                 {
-                    if (drop == 1)
+                    if (drop1 == 1)
                         cowRect.Y = -200;
-                    if (drop == 2)
+                    if (drop1 == 2)
                     {
                         cowRect.Y = -200;
                         cowRect.X = 155;
                     }
-                    else if (drop == 3)
+                    if (drop1 == 3)
                     {
                         cowRect.Y = -200;
                         cowRect.X = 255;
@@ -246,14 +248,14 @@ namespace Final_Project_Game___Monogame
                 rockRect.Y += (int)rockSpeed.Y;
                 if (rockRect.Top >= window.Height)
                 {
-                    if (drop == 1)
+                    if (drop2 == 1)
                         rockRect.Y = -200;
-                    if (drop == 2)
+                    if (drop2 == 2)
                     {
                         rockRect.Y = -200;
                         rockRect.X = 155;
                     }
-                    else if (drop == 3)
+                    if (drop2 == 3)
                     {
                         rockRect.Y = -200;
                         rockRect.X = 255;
