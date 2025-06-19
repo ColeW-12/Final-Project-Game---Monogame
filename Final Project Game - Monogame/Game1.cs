@@ -80,8 +80,12 @@ namespace Final_Project_Game___Monogame
         Rectangle rockRect;
         Vector2 rockSpeed;
 
-        Random randNum1, randNum2;
-        int drop1, drop2;
+        Texture2D signTexture;
+        Rectangle signRect;
+        Vector2 signSpeed;
+
+        Random randNum1, randNum2, randNum3;
+        int drop1, drop2, drop3;
 
         public Game1()
         {
@@ -118,15 +122,19 @@ namespace Final_Project_Game___Monogame
             endPlayRect = new Rectangle(225, 400, 150, 100);
             endHomeRect = new Rectangle(50, 400, 150, 100);
             rockRect = new Rectangle(155, -400, 75, 75);
+            signRect = new Rectangle(255, -600, 75, 75);
 
             trackSpeed = new Vector2(0, 3);
             cowSpeed = new Vector2(0, 3);
             rockSpeed = new Vector2(0, 3);
+            signSpeed = new Vector2(0, 3);
 
             randNum1 = new Random();
-            drop1 = randNum1.Next(1, 4);
+            
             randNum2 = new Random();
-            drop2 = randNum2.Next(0, 4);
+
+            randNum3 = new Random();
+            
 
             base.Initialize();
         }
@@ -153,10 +161,11 @@ namespace Final_Project_Game___Monogame
             endHomeTexture = Content.Load<Texture2D>("buttonHome");
             endPlayTexture = Content.Load<Texture2D>("play-now");
             rockTexture = Content.Load<Texture2D>("stone");
+            signTexture = Content.Load<Texture2D>("con sign");
         }
 
         protected override void Update(GameTime gameTime)
-        {
+        { 
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
 
@@ -173,7 +182,7 @@ namespace Final_Project_Game___Monogame
 
             // TODO: Add your update logic here
 
-
+        
             if (screen == Screen.Intro)
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
@@ -216,7 +225,7 @@ namespace Final_Project_Game___Monogame
                         trainRect.X = 155;
                     else if (trainRect.X == 155)
                         trainRect.X = 60;
-                    
+
                 }
                 if ((keyboardState.IsKeyDown(Keys.Right)) && prevKeyboardState.IsKeyUp(Keys.Right))
                 {
@@ -229,16 +238,17 @@ namespace Final_Project_Game___Monogame
                 cowRect.Y += (int)cowSpeed.Y;
                 if (cowRect.Top >= window.Height)
                 {
+                    drop1 = randNum1.Next(1, 4);
                     if (drop1 == 1)
-                        cowRect.Y = -200;
+                        cowRect.Y = -100;
                     if (drop1 == 2)
                     {
-                        cowRect.Y = -200;
+                        cowRect.Y = -100;
                         cowRect.X = 155;
                     }
                     if (drop1 == 3)
                     {
-                        cowRect.Y = -200;
+                        cowRect.Y = -100;
                         cowRect.X = 255;
                     }
                 }
@@ -248,6 +258,7 @@ namespace Final_Project_Game___Monogame
                 rockRect.Y += (int)rockSpeed.Y;
                 if (rockRect.Top >= window.Height)
                 {
+                    drop3 = randNum3.Next(0, 4);
                     if (drop2 == 1)
                         rockRect.Y = -200;
                     if (drop2 == 2)
@@ -260,8 +271,29 @@ namespace Final_Project_Game___Monogame
                         rockRect.Y = -200;
                         rockRect.X = 255;
                     }
+                    
                 }
                 if (trainRect.Intersects(rockRect))
+                    screen = Screen.End;
+
+                signRect.Y += (int)signSpeed.Y;
+                if (signRect.Top >= window.Height)
+                {
+                    drop3 = randNum3.Next(0, 4);
+                    if (drop3 == 1)
+                        signRect.Y = -200;
+                    if (drop3 == 2)
+                    {
+                        signRect.Y = -200;
+                        signRect.X = 155;
+                    }
+                    if (drop3 == 3)
+                    {
+                        signRect.Y = -200;
+                        signRect.X = 255;
+                    }
+                }
+                if (trainRect.Intersects(signRect))
                     screen = Screen.End;
             }
             if (screen == Screen.End)
@@ -287,48 +319,52 @@ namespace Final_Project_Game___Monogame
                         endPlayRect = new Rectangle(225, 400, 150, 100);
                         endHomeRect = new Rectangle(50, 400, 150, 100);
                         rockRect = new Rectangle(155, -400, 75, 75);
+                        signRect = new Rectangle(255, -600, 75, 75);
 
                         trackSpeed = new Vector2(0, 3);
                         cowSpeed = new Vector2(0, 3);
                         rockSpeed = new Vector2(0, 3);
+                        signSpeed = new Vector2(0, 3);
                         screen = Screen.Intro;
 
                     }
-                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    
+                    if (endPlayRect.Contains(mouseState.Position))
                     {
-                        if (endPlayRect.Contains(mouseState.Position))
-                        {
-                            grass1Rect = new Rectangle(0, 0, 400, 600);
-                            grass2Rect = new Rectangle(0, -600, 400, 600);
+                        grass1Rect = new Rectangle(0, 0, 400, 600);
+                        grass2Rect = new Rectangle(0, -600, 400, 600);
 
-                            tracks1Rect = new Rectangle(50, 0, 100, 600);
-                            tracks2Rect = new Rectangle(150, 0, 100, 600);
-                            tracks3Rect = new Rectangle(250, 0, 100, 600);
-                            tracks4Rect = new Rectangle(50, -600, 100, 600);
-                            tracks5Rect = new Rectangle(150, -600, 100, 600);
-                            tracks6Rect = new Rectangle(250, -600, 100, 600);
-                            playRect = new Rectangle(75, 300, 250, 100);
-                            rectangleRect = new Rectangle(89, 302, 221, 97);
-                            trainRect = new Rectangle(155, 500, 90, 200);
-                            cowRect = new Rectangle(60, -200, 75, 75);
-                            moneyRect = new Rectangle(60, -200, 75, 75);
-                            endPlayRect = new Rectangle(225, 400, 150, 100);
-                            endHomeRect = new Rectangle(50, 400, 150, 100);
-                            rockRect = new Rectangle(155, -400, 75, 75);
+                        tracks1Rect = new Rectangle(50, 0, 100, 600);
+                        tracks2Rect = new Rectangle(150, 0, 100, 600);
+                        tracks3Rect = new Rectangle(250, 0, 100, 600);
+                        tracks4Rect = new Rectangle(50, -600, 100, 600);
+                        tracks5Rect = new Rectangle(150, -600, 100, 600);
+                        tracks6Rect = new Rectangle(250, -600, 100, 600);
+                        playRect = new Rectangle(75, 300, 250, 100);
+                        rectangleRect = new Rectangle(89, 302, 221, 97);
+                        trainRect = new Rectangle(155, 500, 90, 200);
+                        cowRect = new Rectangle(60, -200, 75, 75);
+                        moneyRect = new Rectangle(60, -200, 75, 75);
+                        endPlayRect = new Rectangle(225, 400, 150, 100);
+                        endHomeRect = new Rectangle(50, 400, 150, 100);
+                        rockRect = new Rectangle(155, -400, 75, 75);
+                        signRect = new Rectangle(255, -600, 75, 75);
 
-                            trackSpeed = new Vector2(0, 3);
-                            cowSpeed = new Vector2(0, 3);
-                            rockSpeed = new Vector2(0, 3);
-                            screen = Screen.Main;
+                        trackSpeed = new Vector2(0, 3);
+                        cowSpeed = new Vector2(0, 3);
+                        rockSpeed = new Vector2(0, 3);
+                        signSpeed = new Vector2(0, 3);
+                        screen = Screen.Main;
 
-                        }
                     }
+                    
                 }
             }
 
-            base.Update(gameTime);
+                base.Update(gameTime);
 
-        }
+            }
+
 
         protected override void Draw(GameTime gameTime)
         {
@@ -361,6 +397,7 @@ namespace Final_Project_Game___Monogame
                 _spriteBatch.Draw(cowTexture, cowRect, Color.White);
                 _spriteBatch.Draw(moneyTexture, moneyRect, Color.White);
                 _spriteBatch.Draw(rockTexture, rockRect, Color.White);
+                _spriteBatch.Draw(signTexture, signRect, Color.White);
 
                 _spriteBatch.Draw(trainTexture, trainRect, Color.White);
             }
